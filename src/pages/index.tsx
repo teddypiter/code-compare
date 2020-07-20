@@ -29,7 +29,7 @@ export default function Home() {
   const [rival, setRival] = useState<string>("");
   const [minRating, setMinRating] = useState<number>(0);
   const [maxRating, setMaxRating] = useState<number>(4000);
-  const [tagOption, setTagOption] = useState("or");
+  const [tagOption, setTagOption] = useState("and");
   const [tags, setTags] = useState({});
   const [tagList, setTagList] = useState([]);
   const [questionList, setQuestionList] = useState([]);
@@ -79,8 +79,8 @@ export default function Home() {
 
     const params = {
       online_judge: platform,
-      handler: username,
-      rival_handler: rival,
+      handle: username,
+      rival_handle: rival,
       filter: {
         rating: {
           minimum: minRating,
