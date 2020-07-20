@@ -19,6 +19,7 @@ import {
   DialogContent,
   DialogActions,
   Fab,
+  CircularProgress,
 } from "@material-ui/core";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -34,6 +35,8 @@ export default function Home() {
   const [tagList, setTagList] = useState([]);
   const [questionList, setQuestionList] = useState([]);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const url = "https://dry-cliffs-04422.herokuapp.com";
 
@@ -65,13 +68,18 @@ export default function Home() {
   };
 
   const getProblems = async (data: any) => {
-    console.log(data);
-    const response = await axios.post(url + "/compare", data);
-    console.log(response);
-    setQuestionList(response.data.problems);
+    try {
+      const response = await axios.post(url + "/compare", data);
+      setQuestionList(response.data.problems);
+    } catch (error) {
+      setError(error);
+    }
+    setLoading(false);
   };
 
   const search = () => {
+    setQuestionList([]);
+    setLoading(true);
     const tagParams = [];
     Object.keys(tags).map((key: any) => {
       tagParams.push(key);
@@ -194,14 +202,14 @@ export default function Home() {
                         row
                       >
                         <FormControlLabel
-                          value="or"
-                          control={<Radio color="primary" />}
-                          label="OR"
-                        />
-                        <FormControlLabel
                           value="and"
                           control={<Radio color="primary" />}
                           label="AND"
+                        />
+                        <FormControlLabel
+                          value="or"
+                          control={<Radio color="primary" />}
+                          label="OR"
                         />
                       </RadioGroup>
                     </div>
@@ -244,14 +252,11 @@ export default function Home() {
           </div>
         </div>
         {questionList.length > 0 ? (
-          <div className="w-full px-6">
+          <div className="w-1/2 px-6">
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>
-                      <span className="font-semibold">ID</span>
-                    </TableCell>
                     <TableCell>
                       <span className="font-semibold">Name</span>
                     </TableCell>
@@ -271,9 +276,6 @@ export default function Home() {
                       hover
                       className="cursor-pointer"
                     >
-                      <TableCell>
-                        <div>{row.id}</div>
-                      </TableCell>
                       <TableCell>
                         <div>
                           <a href={row.url}>{row.name}</a>
@@ -302,9 +304,14 @@ export default function Home() {
               </Table>
             </TableContainer>
           </div>
+        ) : loading ? (
+          <div className="w-1/2 px-6">
+            <div className="flex justify-center h-screen items-center">
+              <CircularProgress />
+            </div>
+          </div>
         ) : null}
       </div>
-
       <Fab
         style={{
           margin: 0,
@@ -332,6 +339,22 @@ export default function Home() {
               variant="outlined"
               className="focus:outline-none"
               onClick={() => setOpen(false)}
+            >
+              OK
+            </Button>
+          </DialogActions>
+        </div>
+      </Dialog>
+
+      <Dialog open={error ? true : false} onBackdropClick={() => setError("")}>
+        <DialogContent>{error}</DialogContent>
+        <div className="flex justify-center">
+          <DialogActions>
+            <Button
+              type="submit"
+              variant="outlined"
+              className="focus:outline-none"
+              onClick={() => setError("")}
             >
               OK
             </Button>
