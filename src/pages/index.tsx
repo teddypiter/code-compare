@@ -35,7 +35,7 @@ export default function Home() {
   const [questionList, setQuestionList] = useState([]);
   const [open, setOpen] = useState(false);
 
-  const url = "https://dry-cliffs-04422.herokuapp.com";
+  const url = "http://localhost:8000";
 
   const getTags = async () => {
     const response = await axios.get(url + "/codeforces-problem-tags");
