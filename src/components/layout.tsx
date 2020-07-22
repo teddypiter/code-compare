@@ -5,7 +5,7 @@ const Layout = (props: any) => {
   return (
     <div>
       <Head>
-        <title>Code Compare</title>
+        <title>CP Helper</title>
       </Head>
       <Header />
 
