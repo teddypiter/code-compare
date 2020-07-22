@@ -113,7 +113,7 @@ export default function Home() {
       <div className="flex justify-between">
         <div className="w-1/2">
           <div className="flex items-center my-3">
-            <div className="w-40">Select Platform:</div>
+            <div className="w-40">Online judge</div>
             <FormControl size="small">
               <Select
                 value={platform}
@@ -124,35 +124,33 @@ export default function Home() {
                 className="w-64"
               >
                 <MenuItem value={"codeforces"}>Codeforces</MenuItem>
-                <MenuItem value={"atcoder"}>Atcoder</MenuItem>
+                <MenuItem value={"atcoder"}>AtCoder</MenuItem>
               </Select>
             </FormControl>
           </div>
           <div className="flex items-center my-3">
-            <div className="w-40">Your username:</div>
+            <div className="w-40">Handle</div>
             <TextField
               className="w-64"
               variant="outlined"
               size="small"
-              placeholder="Your username"
               value={username}
               onChange={(e) => setUsername(e.currentTarget.value)}
             />
           </div>
           <div className="flex items-center my-3">
-            <div className="w-40">Rival username:</div>
+            <div className="w-40">Rival handle:</div>
             <TextField
               className="w-64"
               variant="outlined"
               size="small"
-              placeholder="Rival username"
               value={rival}
               onChange={(e) => setRival(e.currentTarget.value)}
             />
           </div>
 
           <div className="flex items-center my-3">
-            <div className="w-40">Question rating:</div>
+            <div className="w-40">Problem rating range:</div>
             <TextField
               className="w-24"
               type="number"
@@ -190,7 +188,7 @@ export default function Home() {
           {platform === "codeforces" ? (
             <div>
               <div className="flex items-center my-3">
-                <div className="w-40">Tag Option:</div>
+                <div className="w-40">Tags option:</div>
                 <FormControl component="fieldset">
                   <div className="flex items-center">
                     <div>
@@ -216,13 +214,13 @@ export default function Home() {
                   </div>
                   <div className="text-gray-500">
                     {tagOption === "and"
-                      ? "Question must have all the selected tag(s)"
-                      : "Question must have at least one of the selected tag(s)"}
+                      ? "Problem must have all the selected tag(s)"
+                      : "Problem must have at least one of the selected tag(s)"}
                   </div>
                 </FormControl>
               </div>
               <div>
-                <div className="w-40 mb-3 mt-8">Select Problem tags</div>
+                <div className="w-40 mb-3 mt-8">Problem tags</div>
                 <div className="flex flex-wrap justify-between">
                   {tagList.map((data: any) => (
                     <div
@@ -329,7 +327,7 @@ export default function Home() {
       <Dialog open={open} onBackdropClick={() => setOpen(false)}>
         <DialogContent>
           {
-            "This website is used to compare unsolved coding problem between user on website that hosts competitive programming contests"
+            "This website is used to compare accepted problems between 2 users in Codeforces/AtCoder."
           }
         </DialogContent>
         <div className="flex justify-center">

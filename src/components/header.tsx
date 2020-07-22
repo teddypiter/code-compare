@@ -16,7 +16,7 @@ export default function Header() {
       <Toolbar>
         <a href="/">
           <div className="flex items-center">
-            <span className="text-xl font-semibold">Code Compare</span>
+            <span className="text-xl font-semibold">CP Helper</span>
           </div>
         </a>
       </Toolbar>
