@@ -70,7 +70,12 @@ export default function Home() {
   const getProblems = async (data: any) => {
     try {
       const response = await axios.post(url + "/compare", data);
-      setQuestionList(response.data.problems);
+
+      if (response.data.problems.length == 0) {
+        setError("No result")
+      } else {
+        setQuestionList(response.data.problems);
+      }
     } catch (error) {
       setError(error);
     }
